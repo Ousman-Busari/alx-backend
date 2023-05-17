@@ -20,7 +20,7 @@ class MRUCache(BaseCaching):
         if len(self.cache_data) == BaseCaching.MAX_ITEMS:
             if key in self.cache_data:
                 self.list_of_recent_keys.remove(key)
-                self.list_of_recent_keys.insert(-1, key)
+                # self.list_of_recent_keys.insert(-1, key)
             else:
                 most_recent = self.list_of_recent_keys.pop()
                 print("DISCARD:", most_recent)

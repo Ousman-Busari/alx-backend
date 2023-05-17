@@ -17,14 +17,20 @@ class LRUCache(BaseCaching):
         if key is None or item is None:
             return
 
-        self.list_of_recent_keys.insert(0, key)
         if len(self.cache_data) == BaseCaching.MAX_ITEMS:
-            least_recent = self.list_of_recent_keys[-1]
-            if key not in self.cache_data:
+            if key in self.cache_data:
+                self.list_of_recent_keys.remove(key)
+                # self.list_of_recent_keys.insert(0, key)
+            else:
+                # least_recent = self.list_of_recent_keys[-1]
+                least_recent = self.list_of_recent_keys.pop()
                 print("DISCARD:", least_recent)
-            del self.cache_data[least_recent]
+                del self.cache_data[least_recent]
+                # self.list_of_recent_keys = self.list_of_recent_keys[:4]
         self.cache_data[key] = item
-        self.list_of_recent_keys = self.list_of_recent_keys[:4]
+        self.list_of_recent_keys.insert(0, key)
+
+
 
     def get(self, key):
         """Gets an item by key"""
